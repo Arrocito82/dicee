@@ -25,6 +25,7 @@ class DicePage extends StatelessWidget {
             Expanded(
               child: TextButton(
                 onPressed: () {
+                  // Message on screen
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: const Text('Awesome Snackbar!'),
@@ -49,7 +50,10 @@ class DicePage extends StatelessWidget {
             ),
             Expanded(
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  // Print to the console
+                  print("Right Button got pressed!");
+                },
                 child: Image.asset("images/dice1.png"),
               ),
             ),
