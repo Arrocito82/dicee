@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,7 +17,16 @@ void main() {
   ));
 }
 
-class DicePage extends StatelessWidget {
+class DicePage extends StatefulWidget {
+  const DicePage({super.key});
+
+  @override
+  State<DicePage> createState() => _DicePageState();
+}
+
+class _DicePageState extends State<DicePage> {
+  int leftDiceNumber = 1;
+  int rightDiceNumber = 1;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -25,36 +36,32 @@ class DicePage extends StatelessWidget {
             Expanded(
               child: TextButton(
                 onPressed: () {
-                  // Message on screen
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: const Text('Awesome Snackbar!'),
-                      duration: Duration(seconds: 5),
-                      backgroundColor: Colors.deepPurple,
-                      behavior: SnackBarBehavior.floating,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      action: SnackBarAction(
-                        label: 'OK',
-                        textColor: Colors.white,
-                        onPressed: () {
-                          // Code to execute.
-                        },
-                      ),
-                    ),
-                  );
+                  /*
+                  You need to change the state within setState method
+                  so that it'll reload and call build method
+                  */
+                  setState(() {
+                    // Generates a random number from 0 to 5, plus one => [1,6]
+                    leftDiceNumber = Random().nextInt(5) + 1;
+                    rightDiceNumber = Random().nextInt(5) + 1;
+                  });
+                  print("Left Button got pressed! Number: $leftDiceNumber");
                 },
-                child: Image.asset("images/dice1.png"),
+                // This is how to embed vars into strings
+                child: Image.asset('images/dice$leftDiceNumber.png'),
               ),
             ),
             Expanded(
               child: TextButton(
                 onPressed: () {
+                  setState(() {
+                    leftDiceNumber = Random().nextInt(5) + 1;
+                    rightDiceNumber = Random().nextInt(5) + 1;
+                  });
                   // Print to the console
-                  print("Right Button got pressed!");
+                  print("Right Button got pressed! Number: $rightDiceNumber");
                 },
-                child: Image.asset("images/dice1.png"),
+                child: Image.asset("images/dice$rightDiceNumber.png"),
               ),
             ),
           ],
